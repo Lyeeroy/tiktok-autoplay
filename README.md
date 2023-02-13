@@ -1,2 +1,2 @@
 # tiktok-autoplay
-Automatically plays the next TikTok video
+Tampermonkey: Automatically plays the next TikTok video
