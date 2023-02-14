@@ -19,7 +19,7 @@
         if (video) {
             clearInterval(checkLoad);
 
-            // Check if video has ended every 100ms
+            // Check if video has ended every 50ms
             var checkEnd = setInterval(function() {
                 if (!autoplay) {
                     return;
