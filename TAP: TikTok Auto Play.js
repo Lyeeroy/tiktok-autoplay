@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 var autoplay = true; // To disable Autoplay as the default setting, switch the value to FALSE.
-var hideChat = true; // To keep the chat button invisible, set the value to FALSE.
+var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value to FALSE.
 
 (function() {
     'use strict';
