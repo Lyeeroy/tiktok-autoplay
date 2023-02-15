@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TAP: TikTok Auto Play
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/Lyeeroy/tiktok-autoplay
 // @version      0.2
 // @description  Automatically plays the next TikTok video
 // @author       LyeeRoy
