@@ -9,6 +9,8 @@
 // @grant        none
 // ==/UserScript==
 
+// If you pause the video, minimaze or somehow stop the video you'll need to manually move on to the next one to continue.
+
 var autoplay = true; // To disable Autoplay as the default setting, switch the value to FALSE.
 var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value to FALSE.
 
