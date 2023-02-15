@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Autoplay Next TikTok Video
+// @name         TAP: TikTok Auto Play
 // @namespace    http://tampermonkey.net/
 // @version      0.2
 // @description  Automatically plays the next TikTok video
