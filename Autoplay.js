@@ -5,13 +5,15 @@
 // @description  Automatically plays the next TikTok video
 // @author       LyeeRoy
 // @match        https://www.tiktok.com/*
+// @icon         https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Tiktok-512.png
 // @grant        none
 // ==/UserScript==
 
+var autoplay = true; // To disable Autoplay as the default setting, switch the value to FALSE.
+var hideChat = true; // To keep the chat button invisible, set the value to FALSE.
+
 (function() {
     'use strict';
-
-    var autoplay = true;
 
     // Check if video is loaded every 100ms
     var checkLoad = setInterval(function() {
@@ -19,30 +21,29 @@
         if (video) {
             clearInterval(checkLoad);
 
-            // Check if video has ended every 50ms
+            // Check if video has ended every 40ms
+            var currentUrl = window.location.href;
             var checkEnd = setInterval(function() {
                 if (!autoplay) {
                     return;
                 }
 
-                var timeFormat = document.querySelector('.tiktok-o2z5xv-DivSeekBarTimeContainer');
-                if (timeFormat) {
-                    var currentTime = timeFormat.textContent.split('/')[0].split(':')[1];
-                    var totalTime = timeFormat.textContent.split('/')[1].split(':')[1];
-                    if (currentTime === totalTime) {
-                        var downKeyEvent = new KeyboardEvent("keydown", {
-                            bubbles: true,
-                            cancelable: true,
-                            keyCode: 40
-                        });
-                        document.body.dispatchEvent(downKeyEvent);
+                var playerContainer = document.querySelector('.xgplayer-container');
+                if (playerContainer && !playerContainer.classList.contains('xgplayer-inactive')) {
+                    var url = window.location.href;
+                    if (url.startsWith('https://www.tiktok.com/@') && url !== currentUrl) {
+                        currentUrl = url;
+                        var button = document.evaluate('/html/body/div[2]/div[2]/div[3]/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                        if (button) {
+                            button.click();
+                        }
                     }
                 }
             }, 50);
 
             // Add autoplay button
             var btn = document.createElement("BUTTON");
-            btn.innerHTML = "Autoplay: Disable";
+            if (autoplay) { btn.innerHTML = "TAP: Disable"; } else { btn.innerHTML = "TAP: Enable"; }
             btn.style.position = "fixed";
             btn.style.bottom = "20px";
             btn.style.left = "20px";
@@ -58,49 +59,52 @@
             btn.addEventListener("click", function() {
                 autoplay = !autoplay;
                 if (autoplay) {
-                    btn.innerHTML = "Autoplay: Disable";
+                    btn.innerHTML = "TAP: Disable";
                     btn.style.backgroundColor = "transparent";
                     btn.style.color = "#696969";
                     btn.style.border = "2px solid #808080";
                 } else {
-                    btn.innerHTML = "Autoplay: Enable";
+                    btn.innerHTML = "TAP: Enable";
                     btn.style.backgroundColor = "transparent";
                     btn.style.color = "#696969";
                     btn.style.border = "2px solid #808080";
                 }
             });
         }
-    }, 100);
+    }, 50);
 })();
 
+
 (function() {
-    'use strict';
+    if (hideChat) {
+        'use strict';
 
-    // Specify the class name of the element to hide
-    const elementClass = '.tiktok-3q30id-DivContentContainer';
+        // Specify the class name of the element to hide
+        const elementClass = '.tiktok-3q30id-DivContentContainer';
 
-    // Create the button
-    const button = document.createElement('button');
-    button.innerHTML = 'Hide CHAT';
-    button.style.position = "fixed";
-    button.style.bottom = "70px";
-    button.style.left = "20px";
-    button.style.zIndex = "9999";
-    button.style.backgroundColor = "transparent";
-    button.style.color = "#696969";
-    button.style.padding = "10px 20px";
-    button.style.border = "2px solid #808080";
-    button.style.borderRadius = "5px";
-    button.style.cursor = "pointer";
+        // Create the button
+        const button = document.createElement('button');
+        button.innerHTML = 'Hide CHAT';
+        button.style.position = "fixed";
+        button.style.bottom = "70px";
+        button.style.left = "20px";
+        button.style.zIndex = "9999";
+        button.style.backgroundColor = "transparent";
+        button.style.color = "#696969";
+        button.style.padding = "10px 20px";
+        button.style.border = "2px solid #808080";
+        button.style.borderRadius = "5px";
+        button.style.cursor = "pointer";
 
-    // Add the button to the page
-    document.body.appendChild(button);
+        // Add the button to the page
+        document.body.appendChild(button);
 
-    // Add a click event to the button that hides the element
-    button.addEventListener('click', function() {
-        const elements = document.querySelectorAll(elementClass);
-        for (const element of elements) {
-            element.style.display = 'none';
-        }
-    });
+        // Add a click event to the button that hides the element
+        button.addEventListener('click', function() {
+            const elements = document.querySelectorAll(elementClass);
+            for (const element of elements) {
+                element.style.display = 'none';
+            }
+        });
+    }
 })();
