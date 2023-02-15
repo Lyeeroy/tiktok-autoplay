@@ -15,14 +15,15 @@ var hideChat = true; // To keep the chat button invisible, set the value to FALS
 (function() {
     'use strict';
 
-    // Check if video is loaded every 100ms
+    // Check if video is loaded every 50ms
     var checkLoad = setInterval(function() {
         var video = document.querySelector('video');
         if (video) {
             clearInterval(checkLoad);
 
-            // Check if video has ended every 40ms
+            // Check if video has ended every 50ms
             var currentUrl = window.location.href;
+            var wasPaused = false;
             var checkEnd = setInterval(function() {
                 if (!autoplay) {
                     return;
@@ -31,11 +32,18 @@ var hideChat = true; // To keep the chat button invisible, set the value to FALS
                 var playerContainer = document.querySelector('.xgplayer-container');
                 if (playerContainer && !playerContainer.classList.contains('xgplayer-inactive')) {
                     var url = window.location.href;
-                    if (url.startsWith('https://www.tiktok.com/@') && url !== currentUrl) {
-                        currentUrl = url;
-                        var button = document.evaluate('/html/body/div[2]/div[2]/div[3]/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-                        if (button) {
-                            button.click();
+                    if (url.startsWith('https://www.tiktok.com/@')) {
+                        if (url !== currentUrl) {
+                            currentUrl = url;
+                            wasPaused = false;
+                        } else if (playerContainer.classList.contains('xgplayer-pause') && !wasPaused) {
+                            wasPaused = true;
+                            return;
+                        } else if (!wasPaused) {
+                            var button = document.evaluate('/html/body/div[2]/div[2]/div[3]/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                            if (button) {
+                                button.click();
+                            }
                         }
                     }
                 }
