@@ -1,4 +1,4 @@
-#TAP: TikTok Auto Play
+#TAP - TikTok Auto Play
 
 Tampermonkey: Automatically plays the next TikTok video
 
