@@ -6,6 +6,8 @@
 // @author       LyeeRoy
 // @match        https://www.tiktok.com/*
 // @icon         https://cdn4.iconfinder.com/data/icons/social-media-flat-7/64/Social-media_Tiktok-512.png
+// @updateURL    https://github.com/Lyeeroy/tiktok-autoplay/blob/main/TAP:%20TikTok%20Auto%20Play.js
+// @downloadURL  https://github.com/Lyeeroy/tiktok-autoplay/blob/main/TAP:%20TikTok%20Auto%20Play.js
 // @grant        none
 // ==/UserScript==
 
