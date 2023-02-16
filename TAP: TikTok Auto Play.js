@@ -12,7 +12,6 @@
 // ==/UserScript==
 
 // If you pause the video, minimaze or somehow stop the video you'll need to manually move on to the next one to continue.
-
 var autoplay = true; // To disable Autoplay as the default setting, set the value to FALSE.
 var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value to FALSE.
 
@@ -49,6 +48,11 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
                                 button.click();
                             }
                         }
+                    } else {
+                        var button = document.evaluate('/html/body/div[2]/div[2]/div[3]/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                        if (button && !button.innerHTML.includes('Show CHAT')) {
+                            button.innerHTML = 'Show CHAT';
+                        }
                     }
                 }
             }, 50);
@@ -82,10 +86,13 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
                     btn.style.border = "2px solid #808080";
                 }
             });
+
+            if (!window.location.href.startsWith('https://www.tiktok.com/@')) {
+                btn.style.display = 'none';
+            }
         }
     }, 50);
 })();
-
 
 (function() {
     if (hideChat) {
@@ -95,28 +102,49 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
         const elementClass = '.tiktok-3q30id-DivContentContainer';
 
         // Create the button
-        const button = document.createElement('button');
-        button.innerHTML = 'Hide CHAT';
-        button.style.position = "fixed";
-        button.style.bottom = "70px";
-        button.style.left = "20px";
-        button.style.zIndex = "9999";
-        button.style.backgroundColor = "transparent";
-        button.style.color = "#696969";
-        button.style.padding = "10px 20px";
-        button.style.border = "2px solid #808080";
-        button.style.borderRadius = "5px";
-        button.style.cursor = "pointer";
 
-        // Add the button to the page
-        document.body.appendChild(button);
+(function() {
+  if (hideChat) {
+    'use strict';
 
-        // Add a click event to the button that hides the element
-        button.addEventListener('click', function() {
-            const elements = document.querySelectorAll(elementClass);
-            for (const element of elements) {
-                element.style.display = 'none';
-            }
-        });
+    // Specify the class name of the element to hide
+    const elementClass = '.tiktok-3q30id-DivContentContainer';
+
+    // Create the button
+    const button = document.createElement('button');
+    button.innerHTML = 'Hide CHAT';
+    button.style.position = "fixed";
+    button.style.bottom = "70px";
+    button.style.left = "20px";
+    button.style.zIndex = "9999";
+    button.style.backgroundColor = "transparent";
+    button.style.color = "#696969";
+    button.style.padding = "10px 20px";
+    button.style.border = "2px solid #808080";
+    button.style.borderRadius = "5px";
+    button.style.cursor = "pointer";
+
+    // Add the button to the page
+    document.body.appendChild(button);
+
+    // Add a click event to the button that hides or shows the element
+    button.addEventListener('click', function() {
+      const elements = document.querySelectorAll(elementClass);
+      for (const element of elements) {
+        if (element.style.display === 'none') {
+          element.style.display = 'block';
+          button.innerHTML = 'Hide CHAT';
+        } else {
+          element.style.display = 'none';
+          button.innerHTML = 'Show CHAT';
+        }
+      }
+    });
+
+    // Check if URL starts with "https://www.tiktok.com/@", otherwise hide the button
+    const currentUrl = window.location.href;
+    if (!currentUrl.startsWith('https://www.tiktok.com/@')) {
+      button.style.display = 'none';
     }
+  }
 })();
