@@ -45,7 +45,7 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
                             wasPaused = true;
                             return;
                         } else if (!wasPaused) {
-                            var button = document.evaluate('/html/body/div[2]/div[2]/div[3]/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                            var button = document.evaluate('/html/body/div[2]/div[3]/div[4]/div/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
                             if (button) {
                                 button.click();
                             }
