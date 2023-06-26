@@ -16,7 +16,6 @@
 var autoplay = true; // To disable Autoplay as the default setting, set the value to FALSE.
 var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value to FALSE.
 
-
 (function() {
     'use strict';
 
@@ -45,9 +44,19 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
                             wasPaused = true;
                             return;
                         } else if (!wasPaused) {
-                            var button = document.evaluate('/html/body/div[2]/div[3]/div[4]/div/div[1]/button[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-                            if (button) {
-                                button.click();
+                            var xpaths = [
+                                '/html/body/div[2]/div[3]/div[4]/div/div[1]/button[3]',
+                                '/html/body/div[1]/div[3]/div[4]/div/div[1]/button[3]',
+                                '/html/body/div[1]/div[2]/div[4]/div/div[1]/button[3]',
+                                '/html/body/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[1]/button[3]'
+                            ];
+
+                            for (var i = 0; i < xpaths.length; i++) {
+                                var button = document.evaluate(xpaths[i], document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+                                if (button) {
+                                    button.click();
+                                    break; // Exit the loop if button is found
+                                }
                             }
                         }
                     }
@@ -58,7 +67,7 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
             var btn = document.createElement("BUTTON");
             if (autoplay) { btn.innerHTML = "TAP: Disable"; } else { btn.innerHTML = "TAP: Enable"; }
             btn.style.position = "fixed";
-            btn.style.bottom = "20px";
+            btn.style.bottom = "80px";
             btn.style.left = "20px";
             btn.style.zIndex = "9999";
             btn.style.backgroundColor = "transparent";
@@ -89,41 +98,41 @@ var hideChat = true; // To keep the "Hide CHAT" button invisible, set the value 
 
 
 (function() {
-  if (hideChat) {
-    'use strict';
+    if (hideChat) {
+        'use strict';
 
-    // Specify the class name of the element to hide/show
-    const elementClass = '.tiktok-3q30id-DivContentContainer';
+        // Specify the class name of the element to hide/show
+        const elementClass = '.tiktok-2wi892-DivContentContainer';
 
-    // Create the button
-    const button = document.createElement('button');
-    button.innerHTML = 'Hide CHAT';
-    button.style.position = 'fixed';
-    button.style.bottom = '70px';
-    button.style.left = '20px';
-    button.style.zIndex = '9999';
-    button.style.backgroundColor = 'transparent';
-    button.style.color = '#696969';
-    button.style.padding = '10px 20px';
-    button.style.border = '2px solid #808080';
-    button.style.borderRadius = '5px';
-    button.style.cursor = 'pointer';
+        // Create the button
+        const button = document.createElement('button');
+        button.innerHTML = 'Hide CHAT';
+        button.style.position = 'fixed';
+        button.style.bottom = '130px';
+        button.style.left = '20px';
+        button.style.zIndex = '9999';
+        button.style.backgroundColor = 'transparent';
+        button.style.color = '#696969';
+        button.style.padding = '10px 20px';
+        button.style.border = '2px solid #808080';
+        button.style.borderRadius = '5px';
+        button.style.cursor = 'pointer';
 
-    // Add the button to the page
-    document.body.appendChild(button);
+        // Add the button to the page
+        document.body.appendChild(button);
 
-    // Add a click event to the button that toggles the element
-    button.addEventListener('click', function() {
-      const elements = document.querySelectorAll(elementClass);
-      for (const element of elements) {
-        if (element.style.display === 'none') {
-          element.style.display = 'block';
-          button.innerHTML = 'Hide CHAT';
-        } else {
-          element.style.display = 'none';
-          button.innerHTML = 'Show CHAT';
-        }
-      }
-    });
-  }
+        // Add a click event to the button that toggles the element
+        button.addEventListener('click', function() {
+            const elements = document.querySelectorAll(elementClass);
+            for (const element of elements) {
+                if (element.style.display === 'none') {
+                    element.style.display = 'block';
+                    button.innerHTML = 'Hide CHAT';
+                } else {
+                    element.style.display = 'none';
+                    button.innerHTML = 'Show CHAT';
+                }
+            }
+        });
+    }
 })();
