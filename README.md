@@ -1,3 +1,5 @@
+*OUTDATED*
+
 **TAP: TikTok Auto Play**
 
 Tampermonkey: Automatically plays the next TikTok video (Auto Scroll)
